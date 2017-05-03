@@ -1,0 +1,33 @@
+{
+  "name": "timer.web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "",
+  "repository": "",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0.41",
+    "awesome-typescript-loader": "^3.1.2",
+    "clean-webpack-plugin": "^0.1.16",
+    "concurrently": "^3.4.0",
+    "cross-env": "^4.0.0",
+    "html-webpack-plugin": "^2.28.0",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.3"
+  },
+  "scripts": {
+    "start-dev": "concurrently --raw \"yarn run watch-dotnet-dev\" \"yarn run watch-webpack-dev\"",
+    "watch-dotnet-dev": "cross-env ASPNETCORE_ENVIRONMENT=Development dotnet -d watch run",
+    "webpack-dev": "cross-env NODE_ENV=development webpack",
+    "webpack-production": "cross-env NODE_ENV=production webpack",
+    "build-production": "yarn run webpack-production",
+    "build-dev": "yarn run webpack-dev",
+    "watch-webpack-dev": "cross-env NODE_ENV=development webpack --watch --color"
+  }
+}
