@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timer.Web", "src\Timer.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timer.Service", "src\Timer.Service\Timer.Service.csproj", "{B3FCF64A-D0F8-4AF9-8B84-C0901451B1F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "src\IdentityServer\IdentityServer.csproj", "{393B00E8-409E-4D57-9189-ED8290A27944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B3FCF64A-D0F8-4AF9-8B84-C0901451B1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3FCF64A-D0F8-4AF9-8B84-C0901451B1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3FCF64A-D0F8-4AF9-8B84-C0901451B1F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393B00E8-409E-4D57-9189-ED8290A27944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393B00E8-409E-4D57-9189-ED8290A27944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393B00E8-409E-4D57-9189-ED8290A27944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393B00E8-409E-4D57-9189-ED8290A27944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

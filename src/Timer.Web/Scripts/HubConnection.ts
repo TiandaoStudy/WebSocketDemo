@@ -6,6 +6,7 @@ export type CallableMethod = (...args: any[]) => void;
 export class HubConnection {
     private webSocket: WebSocket;
     private subscriptions: Map<string, CallableMethod>;
+    private authToken: string;
 
     public constructor(public url: string) {
         this.subscriptions = new Map<string, CallableMethod>();
@@ -13,7 +14,7 @@ export class HubConnection {
 
     public connect(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            let webSocket = new WebSocket(this.url);
+            let webSocket = new WebSocket(this.url + "?auth=" + this.authToken);
 
             webSocket.onerror = (error: ErrorEvent) => {
                 reject(error);
@@ -42,6 +43,10 @@ export class HubConnection {
         });
     }
 
+    public setAuthToken(accessToken: string): void {
+        this.authToken = accessToken;
+    }
+
     public disconnect(): void {
         if (this.webSocket && this.webSocket.readyState === WebSocket.OPEN) {
             this.webSocket.close();
@@ -49,6 +54,7 @@ export class HubConnection {
     }
 
     public onClosed: ConnectionClosedDelegate;
+
     public subscribe(channelName: string, method: CallableMethod): void {
         if (!this.subscriptions.has(channelName)) {
             this.subscriptions.set(channelName, method);

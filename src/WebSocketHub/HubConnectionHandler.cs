@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebSocketHub.HubMessages;
+using WebSocketHub.Redis;
 
 namespace WebSocketHub
 {
@@ -29,7 +30,7 @@ namespace WebSocketHub
         {
             try
             {
-                _redisSubscriptionService.UnsubscribeFromAll(connection);
+                await _redisSubscriptionService.UnsubscribeFromAll(connection);
                 _connectedClients.RemoveClient(connection);
                 await connection.CloseAsync();
             }
@@ -55,10 +56,10 @@ namespace WebSocketHub
             switch (messageType)
             {
                 case MessageType.Subscribe:
-                    _redisSubscriptionService.SubscribeTo(topic, connection);
+                    await _redisSubscriptionService.SubscribeTo(topic, connection);
                     break;
                 case MessageType.Unsubscribe:
-                    _redisSubscriptionService.UnsubscribeFrom(topic, connection);
+                    await _redisSubscriptionService.UnsubscribeFrom(topic, connection);
                     break;
                 case MessageType.Message:
                     // not sure yet
