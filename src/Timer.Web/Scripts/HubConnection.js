@@ -6,7 +6,7 @@ export class HubConnection {
     }
     connect() {
         return new Promise((resolve, reject) => {
-            let webSocket = new WebSocket(this.url);
+            let webSocket = new WebSocket(this.url + "?auth=" + this.authToken);
             webSocket.onerror = (error) => {
                 reject(error);
             };
@@ -29,6 +29,9 @@ export class HubConnection {
                 }
             };
         });
+    }
+    setAuthToken(accessToken) {
+        this.authToken = accessToken;
     }
     disconnect() {
         if (this.webSocket && this.webSocket.readyState === WebSocket.OPEN) {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
 namespace IdentityServer
@@ -14,6 +10,7 @@ namespace IdentityServer
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://localhost:5001")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()

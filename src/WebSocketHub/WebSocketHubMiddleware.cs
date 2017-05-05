@@ -9,7 +9,9 @@ namespace WebSocketHub
     {
         public static readonly string WebSocket_Request_Initiated = "WebSocket request initiated.";
         public static readonly string WebSocket_Closing = "WebSocket is closing.";
-        public static readonly string WebSocket_On_Exception = "Exception occured, removing client from the connections. Error message: {0}";
+
+        public static readonly string WebSocket_On_Exception =
+            "Exception occured, removing client from the connections. Error message: {0}";
     }
 
     public class WebSocketHubMiddleware
@@ -34,6 +36,7 @@ namespace WebSocketHub
                 return;
             }
 
+            _logger.LogInformation("The user is {0}", context.User.Identity.IsAuthenticated ? "authenticated" : "not authenticated");
             _logger.LogInformation(WebSocketMiddlewareResources.WebSocket_Request_Initiated);
             using (var connection = new Connection(await context.WebSockets.AcceptWebSocketAsync(), context.User))
             {
@@ -42,8 +45,11 @@ namespace WebSocketHub
                 {
                     await _connectionHandler.OnConnectionAccepted(connection);
                     await connection.ReceiveMessages(
-                        async (messageType, message) => { await _connectionHandler.ReceiveAsync(connection, messageType, message, cancellationToken); },
-                        async () => 
+                        async (messageType, message) =>
+                        {
+                            await _connectionHandler.ReceiveAsync(connection, messageType, message, cancellationToken);
+                        },
+                        async () =>
                         {
                             await _connectionHandler.OnConnectionClosed(connection);
                             _logger.LogInformation(WebSocketMiddlewareResources.WebSocket_Closing);

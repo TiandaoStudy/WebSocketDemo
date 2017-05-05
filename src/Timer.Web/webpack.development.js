@@ -9,7 +9,8 @@ var rootPath = path.resolve(__dirname, "wwwroot");
 module.exports = {
     entry: {
         main: './Scripts/index.ts',
-        vendor: ['jquery', 'moment']
+        callback: './Scripts/callback.ts',
+        vendor: ['jquery', 'moment', 'oidc-client']
     },
     output: {
         filename: '[name].[hash].js',
@@ -33,8 +34,15 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './App/index.html',
+            chunks: ['main', 'vendor'],
             inject: 'body',
             filename: path.resolve(rootPath, 'index.html')
+        }),
+        new HtmlWebpackPlugin({
+            template: './App/callback.html',
+            chunks: ['callback', 'vendor'],
+            inject: 'body',
+            filename: path.resolve(rootPath, 'callback.html')
         })
     ]
 }
